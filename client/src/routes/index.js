@@ -32,7 +32,7 @@ const AppRouter = () => {
   }
 
   useEffect(() => {
-    if (web3 == "") {
+    if (web3 === "") {
       loadWeb3();
     }
   });

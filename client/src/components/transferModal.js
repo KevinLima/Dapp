@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Transfer from "./Transfer";
@@ -48,7 +48,7 @@ export default function SimpleModal(props) {
         >
             <div style={modalStyle} className={classes.paper}>
                 {props.soort === "transfer" ? <Transfer /> : 
-                <img 
+                <img alt=""
                 src={props.imgAddress}
                 className={classes.img}
                 />}

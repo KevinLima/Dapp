@@ -1,7 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-
 import Image from "../../images/environment.svg";
-
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -114,7 +112,7 @@ const Register = props => {
     setGlobal({
       role: ""
     })
-    if (Object.entries(web3).length != 0 && contract == "") {
+    if (Object.entries(web3).length !== 0 && contract === "") {
       loadContract(web3);
     }
   });
@@ -147,7 +145,7 @@ const Register = props => {
           style={{
             height: '90vh'
           }}>
-          <img src={Image} className={classes.image} />
+          <img src={Image} className={classes.image} alt="Role" />
           <Typography variant="h4" gutterBottom className={classes.text}>
             What's your role?
           </Typography>

@@ -3,14 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Title from "../../components/home/Welcome";
 import Button from '@material-ui/core/Button';
 import history from "../../utils/history";
 import Image from "../../images/ethereum.png";
 import Typography from '@material-ui/core/Typography';
-import { spacing } from '@material-ui/system';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
   },
@@ -51,7 +49,7 @@ function App() {
           }}
         >
           <Grid item l={12}>
-            <img src={Image} className={classes.image} />
+            <img alt="" src={Image} className={classes.image} />
           </Grid>
           <Grid item l={12}>
             <Typography variant="h4" gutterBottom className={classes.text}>

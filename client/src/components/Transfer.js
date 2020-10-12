@@ -1,11 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
-
-import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import Loader from '../components/Loader';
@@ -14,44 +10,11 @@ import {isValid} from "../utils/isValidAddress";
 import Web3Context from "../utils/Web3Context";
 import AnatokenContract from '../contracts/AnaToken.json';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: 200,
-    },
-  },
-  text: {
-    width: '100%'
-  },
-  paper: {
-    marginTop: 20,
-    height: 200,
-    width: '100%',
-    textAlign: 'center',
-  },
-  marginAutoContainer: {
-    width: '100%',
-    height: 80,
-    display: 'flex',
-  },
-  marginAutoItem: {
-    margin: 'auto',
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: 200,
-    }
-  },
-  button: {
-    marginTop: 20
-  }
-}));
 
-const Tranfer = props => {
-  const classes = useStyles();
+const Tranfer = () => {
   const web3 = React.useContext(Web3Context);
   const [isLoading, setLoading] = React.useState(false);
-  const [balance, setBalance] = React.useState(0);
+  const [, setBalance] = React.useState(0);
   const [contract, setContract] = React.useState("");
   const [amount, setAmount] = React.useState(0);
   const [address, setAddress] = React.useState("");
@@ -83,10 +46,10 @@ const Tranfer = props => {
   }
 
   useEffect(() => {
-    if (Object.entries(web3).length != 0 && contract == "") {
+    if (Object.entries(web3).length !== 0 && contract === "") {
       loadContract(web3);
     }
-  }, []);
+  }, [contract, web3]);
 
   const transferToken = async () => {
     setLoading(true);
@@ -176,7 +139,7 @@ const Tranfer = props => {
                   }}
                   value={amount}
                   onChange={e => setAmount(e.target.value)}
-                  label="amount" />
+                   />
                 <TextField
                   id="standard-bsic"
                   value={address}
@@ -187,7 +150,7 @@ const Tranfer = props => {
                   label="Address" />
                 <br />
                 <br />
-                <Fab variant="contained"  color="primary" disabled={amount == 0 && isValid(address) === false} onClick={() => transferToken()} style={{width:'100%'}} >
+                <Fab variant="contained"  color="primary" disabled={amount === 0 && isValid(address) === false} onClick={() => transferToken()} style={{width:'100%'}} >
                   Transfer
                 </Fab>
               </Fragment>
