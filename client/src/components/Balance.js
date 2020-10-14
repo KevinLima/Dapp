@@ -54,7 +54,6 @@ const useStyles = makeStyles(theme => ({
 const Balance = props => {
   const classes = useStyles();
   const web3 = React.useContext(Web3Context);
-  const [isLoading, setLoading] = React.useState(true);
   const [balance, setBalance] = React.useState(0);
   const [contract, setContract] = React.useState("");
 
@@ -83,7 +82,7 @@ const Balance = props => {
   }
 
   useEffect(() => {
-    if (Object.entries(web3).length != 0 && contract == "") {
+    if (Object.entries(web3).length !== 0 && contract === "") {
       loadContract(web3);
     }
   });

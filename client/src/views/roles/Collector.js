@@ -17,7 +17,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Collector = () => {
-  const [global, setGlobal] = useGlobal();
+  //const [global, setGlobal] = useGlobal();
+  const [global] = useGlobal();
   const web3 = React.useContext(Web3Context);
   const [open, setOpen] = React.useState(false);
   const [soort, setSoort] = React.useState(false);
@@ -42,10 +43,10 @@ const Collector = () => {
   // }, []);
 
   useEffect(() => {
-    if (Object.entries(web3).length != 0) {
+    if (Object.entries(web3).length !== 0) {
       setUserAddress(web3);
     }
-  }, [open]);
+  }, [open, web3]);
 
 
 

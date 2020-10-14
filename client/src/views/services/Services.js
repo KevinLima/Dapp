@@ -4,14 +4,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Title from "../../components/home/Welcome";
-import Button from '@material-ui/core/Button';
-import history from "../../utils/history";
 import MaterialTable from 'material-table';
 import ServiceProvider from '../../contracts/ServiceProvider';
-
-import getWeb3 from "../../utils/getWeb3";
 import Web3Context from "../../utils/Web3Context";
-import { useGlobal } from "reactn";
 
 
 const Services = props => {
@@ -19,7 +14,6 @@ const Services = props => {
   const [isLoading, setLoading] = React.useState(true);
   const [contract, setContract] = React.useState("");
   const [data, setData] = React.useState([]);
-  const [global, setGlobal] = useGlobal();
   let accounts = [];
   let fullServices = [];
 
@@ -49,12 +43,12 @@ const Services = props => {
   }
 
   useEffect(() => {
-    if (Object.entries(web3).length != 0 && contract == "") {
+    if (Object.entries(web3).length !== 0 && contract === "") {
       loadContract(web3);
     }
 
-  }, [web3, data]);
-
+  }, [web3, data, contract, loadContract]);
+/*
   // gets cources that were created by the current user, should be available only for service provider
   async function getMyCourcesCodes(contract) {
     var resp = await contract.methods["emitServices"]().call();
@@ -64,14 +58,14 @@ const Services = props => {
       fullServices.push(getFullServiceByCode(item.code))
     });
     return fullServices;
-  }
+  }*/
 
     const getAllServices = async (contract) => {
     let all = await contract.methods.emitAllServices().send({from: accounts[0], wei:1});
     let codes = all.events.EmitServices.returnValues[1];
 
     for (let i = 0; i < codes.length; i++){
-      if(codes[i] == 0){
+      if(codes[i] === 0){
         codes.splice(i, 1);
         i--;
       }
@@ -113,6 +107,7 @@ const Services = props => {
 
   // creates new service
   async function createNewService(service, contract) {
+    /*
     let newservice = {
       code: service.code,
       serviceType: service.serviceType,
@@ -122,10 +117,11 @@ const Services = props => {
       enddate: service.enddate,
       instructor: service.instructor,
       costs: service.costs
-    }
-    if(accounts.length == 0){
+    }*/
+    if(accounts.length === 0){
       accounts = await web3.eth.getAccounts();
     }
+    /*
     var resp =  await contract.methods.createService(
       parseInt(service.code),
       service.serviceType.toString(),
@@ -138,25 +134,15 @@ const Services = props => {
     ).send({from: accounts[0], wei:1});
     data.push(newservice);
     let old = [...data];
-    setData([...old]);
-  }
-
-  async function updateData(contract) {
-    
-    // TODO This needs to update the list of services depending on the user role
-    // if (serviceProviderRole){
-    //   getMyCourcesCodes(contract);
-    // } else {
-    //   emitAllServices();
-    // }
+    setData([...old]);*/
   }
 
   // this should be called on edit
   async function editService(service, contract) {
-    if(accounts.length == 0){
+    if(accounts.length === 0){
       accounts = await web3.eth.getAccounts();
     }
-    var resp = await contract.methods.updateService(
+    await contract.methods.updateService(
       parseInt(service.code),
       service.serviceType.toString(),
       service.serviceName.toString(),
@@ -186,11 +172,11 @@ const Services = props => {
 
   //deleting the service
   async function deleteService(service, contract) {
-    if(accounts.length == 0){
+    if(accounts.length === 0){
       accounts = await web3.eth.getAccounts();
     }
 
-    var resp = await contract.methods.deleteService(service.code).send({from: accounts[0], wei:1});
+    await contract.methods.deleteService(service.code).send({from: accounts[0], wei:1});
     data.splice(data.indexOf(service), 1);
     let old = [...data];
     setData([...old]);
