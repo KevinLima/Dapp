@@ -9,6 +9,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -38,15 +39,15 @@ const Navbar = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" style={{ backgroundColor: '#0336ff' }}>
         <Toolbar>
-          { <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          {<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
-          </IconButton> }
+          </IconButton>}
           <Typography variant="h6" className={classes.title}>
             Anatoken
           </Typography>
-          { auth && (
+          {auth && (
             <div>
               <IconButton
                 aria-label="account of current user"
@@ -76,7 +77,7 @@ const Navbar = () => {
                 <MenuItem onClick={handleClose}>My account</MenuItem>
               </Menu>
             </div>
-          )} 
+          )}
         </Toolbar>
       </AppBar>
     </div>

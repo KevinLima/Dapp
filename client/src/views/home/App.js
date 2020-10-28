@@ -8,6 +8,7 @@ import history from "../../utils/history";
 import Image from "../../images/ethereum.png";
 import Typography from '@material-ui/core/Typography';
 
+
 const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,

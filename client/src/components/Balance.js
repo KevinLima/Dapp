@@ -1,14 +1,14 @@
 import React, { Fragment, useEffect } from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-
 import Web3Context from "../utils/Web3Context";
 import AnatokenContract from '../contracts/AnaToken.json';
+import Button from '@material-ui/core/Button';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,12 +21,17 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
   },
   paper: {
-    marginTop: 20,
-    height: 100,
-    width: '100%',
-    textAlign: 'center',
+    margin: 20,
+    padding: 20,
+    height: 200,
+    width: 300,
     backgroundColor: '#3f51b5',
     color: '#fff'
+  },
+  token:{
+    height: 20,
+    width: 20,
+    marginRight: 10,
   },
   span: {
     display: 'inline-block',
@@ -47,7 +52,11 @@ const useStyles = makeStyles(theme => ({
 
   },
   button: {
-    marginTop: 20
+    marginTop: 20,
+    marginRight: 20,
+    color: '#fff',
+    borderColor: '#fff',
+    borderRadius: 0.5,
   }
 }));
 
@@ -67,6 +76,7 @@ const Balance = props => {
         deployedContract && deployedContract.address
       );
 
+      console.log(accounts);
       const balance = await instance.methods.balanceOf(accounts[0]).call();
 
       setBalance(balance);
@@ -95,10 +105,29 @@ const Balance = props => {
           container
           direction="column"
           justify="center"
-          alignItems="center">
+          alignItems="center"
+        >
           <Typography variant="h4" gutterBottom className={classes.text}>
-            <Paper className={classes.paper}>
-              <span className={classes.span}>ANA: {balance}</span>
+            <Paper
+              className={classes.paper}
+              style={{ backgroundColor: '#0336ff' }}
+            >
+              <img 
+              src={require('../images/analogowhite.png')} 
+              alt="Anatoken"
+              className={classes.token}
+              />
+              <span className={classes.span}>
+                {balance}
+              </span>
+              <div className={classes.buttons}>
+            <Button variant="outlined" className={classes.button} color="secondary">
+              Transfer
+            </Button>
+            <Button variant="outlined" color="secondary" className={classes.button}>
+              Receive
+            </Button>
+          </div>
             </Paper>
           </Typography>
         </Grid>
