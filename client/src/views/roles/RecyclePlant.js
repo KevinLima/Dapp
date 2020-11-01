@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { useGlobal } from "reactn";
 import Balance from '../../components/Balance';
+import Collection from '../../components/Collection';
+import Profile from '../../components/Profile';
 import Modal from "../../components/transferModal";
 import Web3Context from "../../utils/Web3Context";
 
@@ -62,7 +64,18 @@ const RecyclePlant = () => {
           justify="center"
           alignItems="center">
           <p>Role: {global.role}</p>
-          <Balance />
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={4}>
+            <Balance />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+            <Collection />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+            <Profile />
+            </Grid>
+          </Grid>
+          
           <div className={classes.buttons}>
             <Button variant="contained" color="primary" onClick={() => handleOpen("transfer")} className={classes.button}>
               Transfer
