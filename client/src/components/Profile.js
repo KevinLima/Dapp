@@ -9,6 +9,8 @@ import HeadIcon from '@material-ui/icons/Person';
 import Avatar from '@material-ui/core/Avatar';
 import KeyIcon from '@material-ui/icons/VpnKey';
 import Button from '@material-ui/core/Button';
+import Modal from "./transferModal.js";
+import Web3Context from "../utils/Web3Context.js";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -89,9 +91,28 @@ const useStyles = makeStyles(theme => ({
 
 const Profile = props => {
   const classes = useStyles();
-
+  const web3 = React.useContext(Web3Context);
+  const [open, setOpen] = React.useState(false);
+  const [soort, setSoort] = React.useState(false);
+  const [imgAddress, setImgAddress] = React.useState("");
+  const setUserAddress = async (web3) => {
+    const accounts = await web3.eth.getAccounts();
+    setImgAddress(`https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${accounts[0]}&choe=UTF-8`);
+  }
   useEffect(() => {
-  });
+    if (Object.entries(web3).length !== 0) {
+      setUserAddress(web3);
+    }
+  }, [open, web3]);
+
+  const handleOpen = soort => {
+    setSoort(soort);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Fragment>
@@ -106,8 +127,8 @@ const Profile = props => {
           <Typography variant="h4" gutterBottom className={classes.text}>
             <Paper
               className={classes.paper}
-              style={{ backgroundColor: '#332C49' }}
-            >
+              style={{ backgroundColor: '#332C49' }}>
+
                 <span className={classes.spanIcon}>
                 <HeadIcon className={classes.HeadIcon} />
               </span>
@@ -119,14 +140,18 @@ const Profile = props => {
                 </Avatar>
               <span className={classes.span}>
                 John Doe
-                <p className={classes.tokenTitle}>Collector</p>
+              <p className={classes.tokenTitle}>{props.role}</p>
               </span>
-              <Button variant="outlined" className={classes.button} color="secondary">
+              <Button 
+              variant="outlined" 
+              className={classes.button} 
+              color="secondary" onClick={() => handleOpen("QR")}>
               <KeyIcon className={classes.KeyIcon} />
             </Button>
               
             </Paper>
           </Typography>
+          <Modal open={open} handleClose={handleClose} soort={soort} imgAddress={imgAddress} />
         </Grid>
       </Container>
     </Fragment>

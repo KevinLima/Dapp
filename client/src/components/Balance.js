@@ -10,6 +10,7 @@ import AnatokenContract from '../contracts/AnaToken.json';
 import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
 import HeadIcon from '@material-ui/icons/AccountBalance';
+import Modal from "./transferModal.js";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -86,6 +87,27 @@ const useStyles = makeStyles(theme => ({
 const Balance = props => {
   const classes = useStyles();
   const web3 = React.useContext(Web3Context);
+  const [open, setOpen] = React.useState(false);
+  const [soort, setSoort] = React.useState(false);
+  const [imgAddress, setImgAddress] = React.useState("");
+  const setUserAddress = async (web3) => {
+    const accounts = await web3.eth.getAccounts();
+    setImgAddress(`https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${accounts[0]}&choe=UTF-8`);
+  }
+  useEffect(() => {
+    if (Object.entries(web3).length !== 0) {
+      setUserAddress(web3);
+    }
+  }, [open, web3]);
+
+  const handleOpen = soort => {
+    setSoort(soort);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const [balance, setBalance] = React.useState(0);
   const [contract, setContract] = React.useState("");
 
@@ -148,12 +170,13 @@ const Balance = props => {
               className={classes.token}
               />
               <div className={classes.buttons}>
-            <Button variant="outlined" className={classes.button} color="secondary">
+            <Button variant="outlined" className={classes.button} color="secondary" onClick={() => handleOpen("transfer")}>
               <SendIcon className={classes.icon} />
             </Button>
           </div>
             </Paper>
           </Typography>
+          <Modal open={open} handleClose={handleClose} soort={soort} imgAddress={imgAddress} />
         </Grid>
       </Container>
     </Fragment>

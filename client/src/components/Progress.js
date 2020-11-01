@@ -83,7 +83,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Collection = props => {
+const Progress = props => {
   const classes = useStyles();
 
   useEffect(() => {
@@ -121,4 +121,4 @@ const Collection = props => {
   );
 };
 
-export default Collection;
+export default Progress;
