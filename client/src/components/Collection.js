@@ -5,8 +5,8 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import HeadIcon from '@material-ui/icons/Nature';
-import Checkbox from '@material-ui/core/Checkbox';
+import HeadIcon from '@material-ui/icons/Landscape';
+import PinDropIcon from '@material-ui/icons/PinDrop';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -106,10 +106,11 @@ const Collection = props => {
             >
                 <span className={classes.span}>
                 <HeadIcon className={classes.HeadIcon} />
-                <p className={classes.tokenTitle}>Goals</p>
-                <Checkbox checked={false}/>
-              20.000g
+                <p className={classes.tokenTitle}>Progress</p>
+                    20.000g
               <p className={classes.tokenTitle}>Plastic Collected</p>
+              
+              <PinDropIcon /> <p className={classes.tokenTitle}>Accra, Ghana</p>
               </span>
               
             </Paper>
