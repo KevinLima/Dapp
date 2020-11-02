@@ -11,7 +11,6 @@ import KeyIcon from '@material-ui/icons/VpnKey';
 import Button from '@material-ui/core/Button';
 import Modal from "./transferModal.js";
 import Web3Context from "../utils/Web3Context.js";
-
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
@@ -95,9 +94,16 @@ const Profile = props => {
   const [open, setOpen] = React.useState(false);
   const [soort, setSoort] = React.useState(false);
   const [imgAddress, setImgAddress] = React.useState("");
+  var publicKey;
   const setUserAddress = async (web3) => {
     const accounts = await web3.eth.getAccounts();
+    publicKey = accounts[0];
     setImgAddress(`https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${accounts[0]}&choe=UTF-8`);
+  }
+
+  const profiled = async () =>{
+    const profile = await Box.getProfile(publicKey);
+    console.log(profile);
   }
   useEffect(() => {
     if (Object.entries(web3).length !== 0) {

@@ -7,7 +7,6 @@ import Progress from '../../components/Progress';
 import Profile from '../../components/Profile';
 
 const RecyclePlant = () => {
-
   const role = "Recycling Center";
 
   return (
